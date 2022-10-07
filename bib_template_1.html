@@ -1,0 +1,10 @@
+<html>  
+  <head> 
+    <title> Publications </title>
+  </head>
+  <body>
+{% for  key in records %}
+<p>{{records[key].items['title']}}</p><br>
+
+{% endfor %}
+</body>
