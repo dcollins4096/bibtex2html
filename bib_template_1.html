@@ -4,7 +4,10 @@
   </head>
   <body>
 {% for  key in records %}
-<p>{{records[key].items['title']}}</p><br>
-
+<p><i>{{records[key].items['title']}}</i><br>
+{{records[key].items['year']}}
+{{records[key].items['journal']}}
+<br>
+{{records[key].items['author']}}</p>
 {% endfor %}
 </body>
