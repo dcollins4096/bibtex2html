@@ -11,7 +11,6 @@ def key_trim(key):
     return output
 def trim_url(url):
     output = url.strip()[1:-2]
-    print(output)
     return output
 
 def trim_title(title):
@@ -25,13 +24,9 @@ def trim_authors(authors):
     #output = output.strip('{}')
     output = output.split(' and ')
     derp = [author_re.match(oot) for oot in output]
-    #print(output)
     actual_output = "".join(dp.group(1)+ ", " for dp in derp)
     actual_output = actual_output[:-2]
 
-    #for d in derp:
-    #    print(d.group(1))
-    ##print([dp.group() for dp in derp])
     return actual_output
 
 def parse_journal(key):
@@ -85,5 +80,20 @@ def parse_bibtex(fname):
         if this_record is not None:
             this_record.eat_line(line)
     return records
+
+from collections import defaultdict
+def get_categories(records):
+    records_by_category=defaultdict(list)
+    for key in records:
+        if 'category' in records[key].items:
+            cat= records[key].items['category'].strip().strip('{}')
+        else:
+            cat = 'Uncategorized'
+        records_by_category[cat].append(records[key])
+    for cat in records_by_category:
+        records_by_category[cat] = sorted( records_by_category[cat], key=lambda
+                                          x:x.items['year'], reverse=True)
+    return records_by_category
+
 
 
